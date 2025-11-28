@@ -1,0 +1,62 @@
+version: '3.8'
+
+services:
+  api:
+    build:
+      context: ..
+      dockerfile: docker/Dockerfile
+    ports:
+      - "3000:3000"
+    environment:
+      - NODE_ENV=production
+      - PORT=3000
+      - DB_HOST=${DB_HOST:-chatify-database.mysql.database.azure.com}
+      - DB_PORT=${DB_PORT:-3306}
+      - DB_USER=${DB_USER:-database}
+      - DB_PASSWORD=${DB_PASSWORD}
+      - DB_NAME=${DB_NAME:-gemini_business}
+      - DB_POOL_SIZE=${DB_POOL_SIZE:-20}
+      - CRYPTO_SECRET_KEY=${CRYPTO_SECRET_KEY:-gemini-gateway-secret-key}
+      - LOG_LEVEL=${LOG_LEVEL:-info}
+    restart: unless-stopped
+    healthcheck:
+      test: ["CMD", "wget", "--no-verbose", "--tries=1", "--spider", "http://localhost:3000/health"]
+      interval: 30s
+      timeout: 3s
+      retries: 3
+      start_period: 10s
+
+  # 多实例部署时使用
+  api-2:
+    build:
+      context: ..
+      dockerfile: docker/Dockerfile
+    ports:
+      - "3001:3000"
+    environment:
+      - NODE_ENV=production
+      - PORT=3000
+      - DB_HOST=${DB_HOST:-chatify-database.mysql.database.azure.com}
+      - DB_PORT=${DB_PORT:-3306}
+      - DB_USER=${DB_USER:-database}
+      - DB_PASSWORD=${DB_PASSWORD}
+      - DB_NAME=${DB_NAME:-gemini_business}
+      - DB_POOL_SIZE=${DB_POOL_SIZE:-20}
+      - CRYPTO_SECRET_KEY=${CRYPTO_SECRET_KEY:-gemini-gateway-secret-key}
+      - LOG_LEVEL=${LOG_LEVEL:-info}
+    restart: unless-stopped
+    profiles:
+      - multi-instance
+
+  # Nginx 负载均衡
+  nginx:
+    image: nginx:alpine
+    ports:
+      - "80:80"
+    volumes:
+      - ./nginx.conf:/etc/nginx/nginx.conf:ro
+    depends_on:
+      - api
+    restart: unless-stopped
+    profiles:
+      - with-nginx

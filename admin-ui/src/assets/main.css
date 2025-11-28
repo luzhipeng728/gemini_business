@@ -1,0 +1,163 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* Custom styles */
+body {
+  font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  background-color: #f1f5f9;
+}
+
+/* Scrollbar styling */
+::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+
+::-webkit-scrollbar-track {
+  background: #f1f5f9;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #cbd5e1;
+  border-radius: 3px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #94a3b8;
+}
+
+/* Stats Card - New Design */
+.stats-card {
+  @apply bg-white rounded-2xl shadow-sm border border-slate-200/60 p-5 flex items-start gap-4 transition-all duration-300;
+}
+
+.stats-card:hover {
+  @apply shadow-md border-slate-200;
+  transform: translateY(-2px);
+}
+
+.stats-card-icon {
+  @apply w-12 h-12 rounded-xl flex items-center justify-center flex-shrink-0 shadow-lg;
+}
+
+/* Status badges - New */
+.status-badge {
+  @apply inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-semibold;
+}
+
+.status-online {
+  @apply bg-emerald-100 text-emerald-700;
+}
+
+.status-online::before {
+  content: '';
+  @apply w-2 h-2 bg-emerald-500 rounded-full animate-pulse;
+}
+
+.status-offline {
+  @apply bg-red-100 text-red-700;
+}
+
+.status-offline::before {
+  content: '';
+  @apply w-2 h-2 bg-red-500 rounded-full;
+}
+
+/* Table styles */
+.table-container {
+  @apply overflow-x-auto rounded-xl border border-slate-200;
+}
+
+.data-table {
+  @apply min-w-full divide-y divide-slate-200;
+}
+
+.data-table th {
+  @apply px-5 py-4 text-left text-xs font-semibold text-slate-500 uppercase tracking-wider bg-slate-50/80;
+}
+
+.data-table td {
+  @apply px-5 py-4 whitespace-nowrap text-sm text-slate-700;
+}
+
+.data-table tbody tr {
+  @apply transition-colors;
+}
+
+.data-table tbody tr:hover {
+  @apply bg-slate-50;
+}
+
+/* Status badges */
+.badge {
+  @apply inline-flex items-center px-2.5 py-1 rounded-full text-xs font-semibold;
+}
+
+.badge-success {
+  @apply bg-emerald-100 text-emerald-700;
+}
+
+.badge-warning {
+  @apply bg-amber-100 text-amber-700;
+}
+
+.badge-danger {
+  @apply bg-red-100 text-red-700;
+}
+
+.badge-gray {
+  @apply bg-slate-100 text-slate-600;
+}
+
+/* Card styles */
+.card {
+  @apply bg-white rounded-2xl shadow-sm border border-slate-200/60 p-6;
+}
+
+.card-header {
+  @apply text-lg font-semibold text-slate-900 mb-4;
+}
+
+/* Button styles */
+.btn {
+  @apply inline-flex items-center justify-center px-4 py-2.5 border rounded-xl text-sm font-semibold focus:outline-none focus:ring-2 focus:ring-offset-2 transition-all duration-200;
+}
+
+.btn-primary {
+  @apply bg-blue-600 text-white border-transparent hover:bg-blue-700 focus:ring-blue-500 shadow-sm hover:shadow;
+}
+
+.btn-secondary {
+  @apply bg-white text-slate-700 border-slate-300 hover:bg-slate-50 focus:ring-blue-500;
+}
+
+.btn-danger {
+  @apply bg-red-600 text-white border-transparent hover:bg-red-700 focus:ring-red-500 shadow-sm;
+}
+
+.btn-sm {
+  @apply px-3 py-1.5 text-xs rounded-lg;
+}
+
+/* Form styles */
+.form-input {
+  @apply block w-full rounded-xl border-slate-300 shadow-sm focus:border-blue-500 focus:ring-blue-500 text-sm py-2.5 px-4;
+}
+
+.form-label {
+  @apply block text-sm font-medium text-slate-700 mb-1.5;
+}
+
+/* Legacy stat card (keep for compatibility) */
+.stat-card {
+  @apply bg-white rounded-2xl shadow-sm border border-slate-200/60 p-5;
+}
+
+.stat-value {
+  @apply text-3xl font-bold text-slate-900;
+}
+
+.stat-label {
+  @apply text-sm font-medium text-slate-500 uppercase tracking-wide;
+}
