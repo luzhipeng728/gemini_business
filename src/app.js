@@ -54,13 +54,13 @@ async function buildApp() {
   });
 
   // 静态文件（管理后台）- 必须在路由之前注册
-  const adminUiPath = path.join(__dirname, '../admin-ui/dist');
+  const adminUiPath = path.join(__dirname, '../public');
   const fs = require('fs');
   if (fs.existsSync(adminUiPath)) {
     await app.register(fastifyStatic, {
       root: adminUiPath,
       prefix: '/',
-      decorateReply: false,
+      decorateReply: true,  // 启用 reply.sendFile
       wildcard: false  // 不使用通配符，让 API 路由优先
     });
 
